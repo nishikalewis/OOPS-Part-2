@@ -1,0 +1,36 @@
+<project name="hw01" basedir="." default="clean" xmlns:ivy="antlib:org.apache.ivy.ant">
+    <property name="src" location="src" />
+    <property name="bin" location="bin" />
+
+
+    <path id="classpath">
+        <pathelement location="${bin}" />
+
+    </path>
+
+    <target name="init">
+        <mkdir dir="${bin}"/>
+    </target>
+
+    <target name="compile" depends="init">
+        <javac srcdir="${src}" destdir="${bin}" includeAntRuntime="no">
+            <classpath refid="classpath"/>
+            <include name="edu/umb/cs681/hw01/*.java"/>
+        </javac>
+    </target>
+
+
+    <target name="run" depends="compile">
+        <java classname="edu.umb.cs681.hw01.Car"
+              classpathref="classpath"
+              fork="true"/>
+    </target>
+
+    <target name="clean" depends="run">
+        <delete includeemptydirs="true">
+            <fileset dir="${bin}/edu/umb/cs681/hw01" includes="*/"/>
+        </delete>
+    </target>
+
+
+</project>
